@@ -73,14 +73,12 @@ fn RenderGetPostsResult(get_posts_result: GetPostsResult) -> Element {
                 },
                 GetPostsResult::Finished(posts) => rsx! {
                     p { "successfully get posts: {posts.len()}" }
-                    
                     table {
                         tr {
                             th { "Id" }
                             th { "Title" }
                             th { "Content" }
                         }
-                    
                         for post in posts {
                             tr {
                                 td { "{post.id}" }
@@ -91,7 +89,7 @@ fn RenderGetPostsResult(get_posts_result: GetPostsResult) -> Element {
                     }
                 },
                 GetPostsResult::Error(e) => rsx! {
-                    h3 { "Error Creating Post" }
+                    h3 { "Error GetPostsResult" }
                     p { "An error occurred: {e}" }
                 },
             }

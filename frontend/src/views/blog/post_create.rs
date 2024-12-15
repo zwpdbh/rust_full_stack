@@ -1,5 +1,6 @@
 #![allow(unused)]
 #![allow(non_snake_case)]
+use crate::components::FormField;
 use crate::components::{FormButton, FormInput};
 use crate::error::Result;
 use dioxus::prelude::*;
@@ -51,7 +52,10 @@ pub fn PostCreate() -> Element {
     let create_post_action = move |event: MouseEvent| {
         event.prevent_default();
 
-        info!("Submitting post - Title: {}, Content: {}", title, content);
+        info!(
+            "create_post_action ->> - Title: {}, Content: {}",
+            title, content
+        );
         let _ = spawn(async move {
             created_post_result.set(CreatePostResult::InProgress);
 
@@ -68,11 +72,19 @@ pub fn PostCreate() -> Element {
         p { "How to build form using component?" }
 
         form {
-            div { class: "field",
-                label { class: "label", "Post title" }
-                div { class: "control" }
-                input { value: "{title}", oninput: move |e| title.set(e.value()) }
+
+            FormField {
+                label: "Post title",
+                value: title(),
+                onchange: move |e: FormEvent| title.set(e.value().clone()),
             }
+
+            // div { class: "field",
+            //     label { class: "label", "Post title" }
+            //     div { class: "control" }
+            //     input { value: "{title}", oninput: move |e| title.set(e.value()) }
+            // }
+
 
             div { class: "field",
                 label { class: "label", "Post content" }
