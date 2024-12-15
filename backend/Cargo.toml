@@ -1,0 +1,78 @@
+[package]
+name = "backend"
+version = "0.1.0"
+edition = "2021"
+publish = false
+default-run = "backend-cli"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+
+[dependencies]
+# region:      --- ccommon packages shared in workspace
+loco-rs = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+chrono = { workspace = true }
+# endregion:   --- ccommon packages shared in workspace
+
+# loco-rs = { workspace = true }
+migration = { path = "migration" }
+
+# serde = { version = "1", features = ["derive"] }
+# serde_json = "1"
+tokio = { version = "1.42", default-features = false }
+tokio-util = { version = "0.7", features = ["io"] }
+async-trait = "0.1.83"
+# tracing = "0.1.40"
+# chrono = "0.4"
+validator = { version = "0.18" }
+sea-orm = { version = "1.1.2", features = [
+  "sqlx-sqlite",
+  "sqlx-postgres",
+  "runtime-tokio-rustls",
+  "macros",
+] }
+
+axum = { version = "0.7.9", features = ["multipart"] }
+include_dir = "0.7"
+uuid = { version = "1.6.0", features = ["v4"] }
+tracing-subscriber = { version = "0.3.17", features = ["env-filter", "json"] }
+
+
+# region:      --- Adding GraphQL Support to Loco with Seaography
+seaography = { version = "1.1.2", features = ["with-decimal", "with-chrono"] }
+async-graphql = { version = "7.0", features = [
+  "decimal",
+  "chrono",
+  "dataloader",
+  "dynamic-schema",
+] }
+async-graphql-axum = { version = "7.0" }
+lazy_static = { version = "1.4" }
+tower-service = { version = "0.3" }
+# endregion:   --- Adding GraphQL Support to Loco with Seaography
+
+
+[[bin]]
+name = "backend-cli"
+path = "src/bin/main.rs"
+required-features = []
+
+[[bin]]
+name = "tool"
+path = "src/bin/tool.rs"
+required-features = []
+
+[dev-dependencies]
+serial_test = "3.2.0"
+rstest = "0.23.0"
+loco-rs = { workspace = true, features = ["testing"] }
+insta = { version = "1.41.0", features = ["redactions", "yaml", "filters"] }
+
+# region:      --- my quick dev
+anyhow = "1"
+reqwest = { version = "^0.12", features = ["multipart", "stream"] }
+httpc-test = { version = "^0.1" }
+# endregion:   --- my quick dev
