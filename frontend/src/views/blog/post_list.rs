@@ -2,7 +2,6 @@
 use super::post_create::PostCreated;
 use crate::error::Result;
 use dioxus::prelude::*;
-use dioxus_sortable::{NullHandling, PartialOrdBy, SortBy, Sortable};
 use reqwest::Client;
 use tracing::info;
 
@@ -32,33 +31,6 @@ enum PostSortField {
     Id,
     #[default]
     Title,
-}
-
-/// This trait decides how our rows are sorted
-impl PartialOrdBy<PostCreated> for PostSortField {
-    fn partial_cmp_by(&self, a: &PostCreated, b: &PostCreated) -> Option<std::cmp::Ordering> {
-        match self {
-            PostSortField::Id => a.id.partial_cmp(&b.id),
-            PostSortField::Title => a.title.partial_cmp(&b.title),
-        }
-    }
-}
-
-/// This trait decides how fields (columns) may be sorted
-impl Sortable for PostSortField {
-    fn sort_by(&self) -> Option<SortBy> {
-        use PostSortField::*;
-        match self {
-            Id => SortBy::increasing_or_decreasing(),
-            Title => SortBy::increasing_or_decreasing(),
-        }
-    }
-
-    fn null_handling(&self) -> NullHandling {
-        match self {
-            _ => NullHandling::Last,
-        }
-    }
 }
 
 #[component]
@@ -101,14 +73,14 @@ fn RenderGetPostsResult(get_posts_result: GetPostsResult) -> Element {
                 },
                 GetPostsResult::Finished(posts) => rsx! {
                     p { "successfully get posts: {posts.len()}" }
-
+                    
                     table {
                         tr {
                             th { "Id" }
                             th { "Title" }
                             th { "Content" }
                         }
-
+                    
                         for post in posts {
                             tr {
                                 td { "{post.id}" }
