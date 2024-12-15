@@ -49,3 +49,26 @@ listening on http://localhost:5150
 ## Getting help
 
 Check out [a quick tour](https://loco.rs/docs/getting-started/tour/) or [the complete guide](https://loco.rs/docs/getting-started/guide/).
+
+## Troubleshooting
+
+### `sea-orm-cli` build error 
+
+- Specify to use `stable` rust channel
+
+```toml
+[toolchain]
+channel = "stable"
+```
+
+- Run `rustup update stable`
+- Run `cargo clean && cargo install sea-orm-cli`
+
+### Blocking waiting for file lock on package cache
+
+```sh 
+rm ~/.cargo/.package-cache
+# optional 
+rustup update
+cargo clean
+```
