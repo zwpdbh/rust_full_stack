@@ -16,7 +16,6 @@ futures-util = { workspace = true }
 chrono = { workspace = true }
 reqwest = { workspace = true }
 tracing = { workspace = true }
-dioxus-sortable = { version = "0.1.2" }
 gloo-timers = { version = "0.3", features = ["futures"] }
 dioxus-free-icons = { version = "0.9", features = [
   "font-awesome-brands",
