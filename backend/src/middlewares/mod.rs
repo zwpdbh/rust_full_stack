@@ -10,7 +10,7 @@ pub fn cors_layer() -> CorsLayer {
         // Allow sending any headers
         .allow_headers(Any)
         // Allow credentials (cookies, authorization headers, etc.)
-        .allow_credentials(true)
+        .allow_credentials(false)
     // Optionally, you can specify allowed headers explicitly
     // .allow_headers([HeaderName::from_static("content-type")])
 }
