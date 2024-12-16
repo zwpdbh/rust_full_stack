@@ -18,7 +18,7 @@ impl MigrationTrait for Migration {
             .create_table(
                 table_auto_tz(StorageTypes::Table)
                     .col(pk_auto(StorageTypes::Id))
-                    .col(string_null(StorageTypes::Name))
+                    .col(string(StorageTypes::Name))
                     .to_owned(),
             )
             .await
