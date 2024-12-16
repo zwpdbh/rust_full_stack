@@ -1,5 +1,6 @@
 use std::path::Path;
 
+use crate::{controllers, models::_entities::users, tasks, workers::downloader::DownloadWorker};
 use async_trait::async_trait;
 use loco_rs::{
     app::{AppContext, Hooks},
@@ -13,8 +14,6 @@ use loco_rs::{
 };
 use migration::Migrator;
 use sea_orm::DatabaseConnection;
-
-use crate::{controllers, models::_entities::users, tasks, workers::downloader::DownloadWorker};
 
 pub struct App;
 #[async_trait]
@@ -38,6 +37,8 @@ impl Hooks for App {
     }
 
     fn routes(_ctx: &AppContext) -> AppRoutes {
+        // Configure CORS, how?
+
         AppRoutes::with_default_routes() // controller routes below
             .add_route(controllers::post::routes())
             .add_route(controllers::file::routes())

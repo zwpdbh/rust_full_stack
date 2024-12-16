@@ -1,9 +1,9 @@
 #![allow(clippy::missing_errors_doc)]
 #![allow(clippy::unnecessary_struct_initialization)]
 #![allow(clippy::unused_async)]
+use axum::debug_handler;
 use loco_rs::prelude::*;
 use serde::{Deserialize, Serialize};
-use axum::debug_handler;
 
 use crate::models::_entities::posts::{ActiveModel, Entity, Model};
 
@@ -11,13 +11,13 @@ use crate::models::_entities::posts::{ActiveModel, Entity, Model};
 pub struct Params {
     pub title: Option<String>,
     pub content: Option<String>,
-    }
+}
 
 impl Params {
     fn update(&self, item: &mut ActiveModel) {
-      item.title = Set(self.title.clone());
-      item.content = Set(self.content.clone());
-      }
+        item.title = Set(self.title.clone());
+        item.content = Set(self.content.clone());
+    }
 }
 
 async fn load_item(ctx: &AppContext, id: i32) -> Result<Model> {

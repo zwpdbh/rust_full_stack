@@ -16,6 +16,11 @@ logger:
 
 # Web server configuration
 server:
+  middlewares:
+    cors:
+      allow_origins: ["http://127.0.0.1:8080"]
+      allow_headers: ["*"]
+      enable: true
   # Port on which the server will listen. the server binding is 0.0.0.0:{PORT}
   port: 5150
   # The UI hostname or IP address that mailers will point to.

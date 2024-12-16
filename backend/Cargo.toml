@@ -54,6 +54,11 @@ lazy_static = { version = "1.4" }
 tower-service = { version = "0.3" }
 # endregion:   --- Adding GraphQL Support to Loco with Seaography
 
+# region:      --- For middleware
+tower-http = { version = "0.6", features = ["cors"] }
+tower-cookies = { version = "0.10" }
+# endregion:   --- For middleware
+
 
 [[bin]]
 name = "backend-cli"

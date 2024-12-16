@@ -4,8 +4,7 @@ use dioxus::{events::MouseEvent, prelude::*};
 pub fn FormButton(label: String, onclick: EventHandler<MouseEvent>) -> Element {
     rsx! {
         button {
-            class: "btn btn-lg btn-primary pull-xs-right",
-            r#type: "button",
+            class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline",
             onclick: move |evt| onclick.call(evt),
             "{label}"
         }

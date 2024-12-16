@@ -1,6 +1,6 @@
 #![allow(unused)]
 #![allow(non_snake_case)]
-use crate::components::{FormButton, FormInput};
+use crate::components::{FormButton, FormInputText};
 use crate::error::Result;
 use dioxus::prelude::*;
 use reqwest::Client;
@@ -51,7 +51,10 @@ pub fn PostCreate() -> Element {
     let create_post_action = move |event: MouseEvent| {
         event.prevent_default();
 
-        info!("Submitting post - Title: {}, Content: {}", title, content);
+        info!(
+            "create_post_action ->> - Title: {}, Content: {}",
+            title, content
+        );
         let _ = spawn(async move {
             created_post_result.set(CreatePostResult::InProgress);
 
@@ -64,38 +67,30 @@ pub fn PostCreate() -> Element {
     };
 
     rsx!(
-        h1 { "page for create post" }
-        p { "How to build form using component?" }
+        div { class: "max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md",
+            h1 { class: "text-2xl font-bold mb-6 text-center", "Create a New Post" }
 
-        form {
-            div { class: "field",
-                label { class: "label", "Post title" }
-                div { class: "control" }
-                input { value: "{title}", oninput: move |e| title.set(e.value()) }
-            }
+            form { class: "space-y-4",
+                FormInputText {
+                    label: "Post title",
+                    value: title(),
+                    onchange: move |e: FormEvent| title.set(e.value().clone()),
+                }
 
-            div { class: "field",
-                label { class: "label", "Post content" }
-                div { class: "control" }
-                input {
-                    value: "{content}",
-                    oninput: move |e| content.set(e.value()),
+                FormInputText {
+                    label: "Post content",
+                    value: content(),
+                    onchange: move |e: FormEvent| content.set(e.value().clone()),
+                }
+
+                div { class: "flex justify-end",
+                    FormButton { label: "Submit", onclick: create_post_action }
                 }
             }
 
-            div { class: "field",
-                p { class: "control",
-                    button {
-                        class: "button is-primary",
-                        onclick: create_post_action,
-                        "Submit"
-                    }
-                }
-            }
+            // Render created post based on condition
+            RenderCreatePostResult { create_post_result: created_post_result() }
         }
-
-        // Render created post based on condition
-        RenderCreatePostResult { create_post_result: created_post_result() }
     )
 }
 
