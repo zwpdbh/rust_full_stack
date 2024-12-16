@@ -4,4 +4,5 @@ pub mod prelude;
 
 pub mod files;
 pub mod posts;
+pub mod storage_types;
 pub mod users;

@@ -2,4 +2,5 @@
 
 pub use super::files::Entity as Files;
 pub use super::posts::Entity as Posts;
+pub use super::storage_types::Entity as StorageTypes;
 pub use super::users::Entity as Users;

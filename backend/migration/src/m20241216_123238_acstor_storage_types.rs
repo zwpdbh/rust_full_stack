@@ -1,4 +1,5 @@
-use sea_orm_migration::prelude::*;
+use loco_rs::schema::table_auto_tz;
+use sea_orm_migration::{prelude::*, schema::*};
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -8,35 +9,16 @@ enum StorageTypes {
     Table,
     Id,
     Name,
-    CreatedAt,
-    UpdatedAt,
 }
+
 #[async_trait::async_trait]
 impl MigrationTrait for Migration {
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         manager
             .create_table(
-                Table::create()
-                    .table(StorageTypes::Table)
-                    .if_not_exists()
-                    .col(
-                        ColumnDef::new(StorageTypes::Id)
-                            .integer()
-                            .not_null()
-                            .auto_increment()
-                            .primary_key(),
-                    )
-                    .col(ColumnDef::new(StorageTypes::Name).string().not_null())
-                    .col(
-                        ColumnDef::new(StorageTypes::CreatedAt)
-                            .timestamp()
-                            .not_null(),
-                    )
-                    .col(
-                        ColumnDef::new(StorageTypes::UpdatedAt)
-                            .timestamp()
-                            .not_null(),
-                    )
+                table_auto_tz(StorageTypes::Table)
+                    .col(pk_auto(StorageTypes::Id))
+                    .col(string_null(StorageTypes::Name))
                     .to_owned(),
             )
             .await
