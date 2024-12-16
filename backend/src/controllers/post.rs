@@ -5,10 +5,7 @@ use axum::debug_handler;
 use loco_rs::prelude::*;
 use serde::{Deserialize, Serialize};
 
-use crate::{
-    middlewares::cors_layer,
-    models::_entities::posts::{ActiveModel, Entity, Model},
-};
+use crate::models::_entities::posts::{ActiveModel, Entity, Model};
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Params {
@@ -68,8 +65,6 @@ pub async fn get_one(Path(id): Path<i32>, State(ctx): State<AppContext>) -> Resu
 }
 
 pub fn routes() -> Routes {
-    let cors = cors_layer();
-
     Routes::new()
         .prefix("api/posts/")
         .add("/", get(list))
@@ -78,5 +73,4 @@ pub fn routes() -> Routes {
         .add(":id", delete(remove))
         .add(":id", put(update))
         .add(":id", patch(update))
-        .layer(cors)
 }
