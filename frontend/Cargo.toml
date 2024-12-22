@@ -21,7 +21,6 @@ dioxus-free-icons = { version = "0.9", features = [
   "font-awesome-brands",
   "bootstrap",
 ] }
-
 # endregion:   --- Added by user 
 
 [dev-dependencies]
