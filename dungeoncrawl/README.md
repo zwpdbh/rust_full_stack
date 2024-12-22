@@ -2,6 +2,10 @@
 
 The code is for learning book [Hands-on Rust: Effective Learning through 2D Game Development and Play](https://www.amazon.com/Hands-Rust-Effective-Learning-Development/dp/1680508164/ref=sr_1_1?crid=2K901CIU44UF5&dib=eyJ2IjoiMSJ9.l5pYSg82qxIs117kCsqdGtfpv6FgUnFVrylqhNFZO7FbJVSQ_-avvM83Pl2zK0kasBM9CkZc-y701bPq8aMmkScIwUeOCM7ej9KZG4vTvcrYGJ08EJ5B0ior06AjRUVFKBR8AGiIYM79reS3W99pIXfh1uVNxHXzu1lo5Syp5hIRDFVi7EsmrV8Dz5n4FHDdBCmdUgKd79xHAuLnuAIXDiTPOo4tY95ZA8FmbZQXTeM.5w4hv-wbq7H8uGWNaig-zkvsVcvoU60yHxBW3cyuE8A&dib_tag=se&keywords=rust+game+development&qid=1734866503&sprefix=rust+game+developme%2Caps%2C404&sr=8-1)
 
+## How to build Rust to WASM and host it on dioxus
+
+- [Building for the Web](https://bfnightly.bracketproductions.com/rustbook/webbuild.html)
+
 ## Troubleshooting 
 
 - error 
