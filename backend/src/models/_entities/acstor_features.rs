@@ -4,13 +4,13 @@ use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
-#[sea_orm(table_name = "storage_types")]
+#[sea_orm(table_name = "acstor_features")]
 pub struct Model {
     pub created_at: DateTimeWithTimeZone,
     pub updated_at: DateTimeWithTimeZone,
     #[sea_orm(primary_key)]
     pub id: i32,
-    pub name: String,
+    pub name: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
@@ -25,13 +25,13 @@ impl Related<super::acstor_features_to_storage_types::Entity> for Entity {
     }
 }
 
-impl Related<super::acstor_features::Entity> for Entity {
+impl Related<super::storage_types::Entity> for Entity {
     fn to() -> RelationDef {
-        super::acstor_features_to_storage_types::Relation::AcstorFeatures.def()
+        super::acstor_features_to_storage_types::Relation::StorageTypes.def()
     }
     fn via() -> Option<RelationDef> {
         Some(
-            super::acstor_features_to_storage_types::Relation::StorageTypes
+            super::acstor_features_to_storage_types::Relation::AcstorFeatures
                 .def()
                 .rev(),
         )

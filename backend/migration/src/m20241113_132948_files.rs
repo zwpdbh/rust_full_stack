@@ -1,4 +1,5 @@
 use super::m20241113_065545_posts::Posts;
+use loco_rs::schema::table_auto_tz;
 use sea_orm_migration::{prelude::*, schema::*};
 
 #[derive(DeriveMigrationName)]
@@ -17,7 +18,7 @@ impl MigrationTrait for Migration {
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         manager
             .create_table(
-                table_auto(Files::Table)
+                table_auto_tz(Files::Table)
                     .col(pk_auto(Files::Id))
                     .col(integer(Files::PostId))
                     .col(string(Files::FilePath))

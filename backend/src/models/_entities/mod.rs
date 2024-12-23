@@ -2,6 +2,8 @@
 
 pub mod prelude;
 
+pub mod acstor_features;
+pub mod acstor_features_to_storage_types;
 pub mod files;
 pub mod posts;
 pub mod storage_types;

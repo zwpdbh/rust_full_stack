@@ -4,21 +4,14 @@ use sea_orm_migration::{prelude::*, schema::*};
 #[derive(DeriveMigrationName)]
 pub struct Migration;
 
-#[derive(Iden)]
-pub enum StorageTypes {
-    Table,
-    Id,
-    Name,
-}
-
 #[async_trait::async_trait]
 impl MigrationTrait for Migration {
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         manager
             .create_table(
-                table_auto_tz(StorageTypes::Table)
-                    .col(pk_auto(StorageTypes::Id))
-                    .col(string(StorageTypes::Name))
+                table_auto_tz(AcstorFeatures::Table)
+                    .col(pk_auto(AcstorFeatures::Id))
+                    .col(string_null(AcstorFeatures::Name))
                     .to_owned(),
             )
             .await
@@ -26,7 +19,14 @@ impl MigrationTrait for Migration {
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         manager
-            .drop_table(Table::drop().table(StorageTypes::Table).to_owned())
+            .drop_table(Table::drop().table(AcstorFeatures::Table).to_owned())
             .await
     }
+}
+
+#[derive(DeriveIden)]
+pub enum AcstorFeatures {
+    Table,
+    Id,
+    Name,
 }
