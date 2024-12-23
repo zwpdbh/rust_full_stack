@@ -3,7 +3,7 @@
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Deserialize, Serialize)]
+#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
 #[sea_orm(table_name = "posts")]
 pub struct Model {
     pub created_at: DateTimeWithTimeZone,
@@ -25,10 +25,4 @@ impl Related<super::files::Entity> for Entity {
     fn to() -> RelationDef {
         Relation::Files.def()
     }
-}
-
-#[derive(Copy, Clone, Debug, EnumIter, DeriveRelatedEntity)]
-pub enum RelatedEntity {
-    #[sea_orm(entity = "super::files::Entity")]
-    Files,
 }

@@ -1,3 +1,4 @@
+#![allow(unused)]
 use async_graphql::dynamic::*;
 use sea_orm::DatabaseConnection;
 use seaography::{Builder, BuilderContext};
@@ -14,11 +15,11 @@ pub fn schema(
     // Builder of Seaography query root
     let mut builder = Builder::new(&CONTEXT, database.clone());
     // Register SeaORM entities
-    seaography::register_entities!(
-        builder,
-        // List all models we want to include in the GraphQL endpoint here
-        [files, posts, users]
-    );
+    // seaography::register_entities!(
+    //     builder,
+    //     // List all models we want to include in the GraphQL endpoint here
+    //     [files, posts, users]
+    // );
     // Configure async GraphQL limits
     let schema = builder
         .schema_builder()

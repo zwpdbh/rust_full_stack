@@ -8,6 +8,6 @@ generate_seaorm:
 generate_post:
 	cargo loco generate scaffold post title:string content:text --api
 	
-# -- quick dev 
-dev_posts:
-	make reset_db && cargo run --example quick_dev_for_posts
+# Start dev db:
+run_dev_db:
+	docker compose -f dockerfiles/local_dev/docker-compose.yaml up

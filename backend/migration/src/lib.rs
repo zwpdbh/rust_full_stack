@@ -6,6 +6,7 @@ mod m20220101_000001_users;
 
 mod m20241113_065545_posts;
 mod m20241113_132948_files;
+mod m20241216_123238_acstor_storage_types;
 pub struct Migrator;
 
 #[async_trait::async_trait]
@@ -16,6 +17,7 @@ impl MigratorTrait for Migrator {
             Box::new(m20241113_065545_posts::Migration),
             Box::new(m20220101_000001_users::Migration),
             Box::new(m20241113_132948_files::Migration),
+            Box::new(m20241216_123238_acstor_storage_types::Migration),
             // inject-above (do not remove this comment)
         ]
     }
