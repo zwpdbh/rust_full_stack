@@ -4,7 +4,16 @@ The code is for learning book [Hands-on Rust: Effective Learning through 2D Game
 
 ## How to build Rust to WASM and host it on dioxus
 
+- Prerequisites 
+
+```sh 
+rustup target add wasm32-unknown-unknown
+cargo install wasm-bindgen-cli
+```
+
 - [Building for the Web](https://bfnightly.bracketproductions.com/rustbook/webbuild.html)
+
+
 
 ## Troubleshooting 
 
