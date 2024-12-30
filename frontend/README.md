@@ -25,6 +25,16 @@ To run for a different platform, use the `--platform platform` flag. E.g.
 dx serve --platform desktop
 ```
 
+## How to add a section  
+
+For example, we want to add a section "Test Coverage" which manage operations related with test coverage.
+
+1. Create pages for shown in the section, such as `StorageTypeCreate`, `StorageTypeList`, etc.
+2. Use those `#[component]` in `Route` in some `#[layout]`
+3. Edit `NavBar` to add the `NavBarItem` entry to create the `a` link. At this stage, the section, the sidebar of the section 
+   and the default page of the section are all ready. But the sidebar menu is empty for now. 
+4. Create sidebar menue by edit `TestCoverageMenu` to add 
+
 
 ## Troubleshooting 
 

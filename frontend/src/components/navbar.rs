@@ -14,6 +14,10 @@ pub fn NavBar() -> Element {
                     ul { class: "flex items-center gap-[4vw]",
                         NavBarItem { label: "Home", route: Some(Route::Home {}) }
                         NavBarItem {
+                            label: "Test Coverage",
+                            route: Some(Route::StorageTypeList {}),
+                        }
+                        NavBarItem {
                             label: "Demos",
                             route: Some(Route::DemoMenuDefault {}),
                         }
