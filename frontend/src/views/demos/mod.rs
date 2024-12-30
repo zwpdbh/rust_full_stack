@@ -1,5 +1,8 @@
 #![allow(non_snake_case)]
-use crate::routes::Route;
+use crate::{
+    components::{css_config, MenuItem, MenuSection},
+    routes::Route,
+};
 use dioxus::prelude::*;
 
 mod async_with_coroutines;
@@ -26,17 +29,15 @@ pub use prop::DemoProp;
 pub use rsx_basic::RsxBasic;
 pub use user_input::UserInput;
 
-const SIDEBAR_CSS: Asset = asset!("/assets/styling/sidebar.css");
-
 /// Place holder for Demo section
 #[component]
 pub fn Demo() -> Element {
     rsx!(
-        div { class: "flex h-screen",
+        div { class: css_config::SECTION_DIV,
             div {
-                div { class: "w-64 h-screen bg-gray-100 p-4 overflow-y-auto", DemoMenu {} }
+                div { class: css_config::SECTION_MENU, DemoMenu {} }
             }
-            div { class: "flex-1 p-4 overflow-auto", Outlet::<Route> {} }
+            div { class: css_config::SECTION_CONTENT, Outlet::<Route> {} }
         }
     )
 }
@@ -50,7 +51,7 @@ pub fn DemoMenuDefault() -> Element {
 #[component]
 fn DemoMenu() -> Element {
     rsx!(
-        document::Link { rel: "stylesheet", href: SIDEBAR_CSS }
+        document::Link { rel: "stylesheet", href: css_config::SIDEBAR_CSS }
         aside {
             MenuSection {
                 title: "General",
@@ -93,36 +94,6 @@ fn DemoMenu() -> Element {
             }
         }
     )
-}
-
-#[component]
-fn MenuSection(title: &'static str, items: Vec<(&'static str, Option<Route>)>) -> Element {
-    rsx!(
-        p { class: "text-gray-500 text-xs uppercase font-semibold mb-2", "{title}" }
-
-        ul { class: "space-y-1 mb-4",
-            for (label , route) in items {
-                MenuItem { label, route }
-            }
-        }
-    )
-}
-
-#[component]
-fn MenuItem(label: &'static str, route: Option<Route>) -> Element {
-    let class = "block hover:bg-gray-200 px-2 py-1 rounded";
-    match route {
-        Some(r) => rsx!(
-            li {
-                Link { to: r, class, "{label}" }
-            }
-        ),
-        None => rsx!(
-            li {
-                a { class, "{label}" }
-            }
-        ),
-    }
 }
 
 #[component]

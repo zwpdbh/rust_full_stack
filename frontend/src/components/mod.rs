@@ -2,7 +2,10 @@
 use dioxus::prelude::*;
 
 mod navbar;
+mod sidebar;
+
 pub use navbar::NavBar;
+pub use sidebar::*;
 
 mod form;
 pub use form::*;
