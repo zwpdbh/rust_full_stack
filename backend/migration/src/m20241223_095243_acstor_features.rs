@@ -11,7 +11,8 @@ impl MigrationTrait for Migration {
             .create_table(
                 table_auto_tz(AcstorFeatures::Table)
                     .col(pk_auto(AcstorFeatures::Id))
-                    .col(string_null(AcstorFeatures::Name))
+                    .col(string(AcstorFeatures::Name))
+                    .col(string_null(AcstorFeatures::Description))
                     .to_owned(),
             )
             .await
@@ -29,4 +30,5 @@ pub enum AcstorFeatures {
     Table,
     Id,
     Name,
+    Description,
 }
