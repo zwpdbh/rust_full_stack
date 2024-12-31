@@ -81,5 +81,4 @@ pub fn routes() -> Routes {
         .add(":id", delete(remove))
         .add(":id", put(update))
         .add(":id", patch(update))
-        .add("/", get(list))
 }

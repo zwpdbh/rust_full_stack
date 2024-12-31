@@ -6,7 +6,11 @@ pub fn FormInputText(label: String, value: String, onchange: EventHandler<FormEv
         div {
             label { "{label}" }
             div {
-                input { value: "{value}", oninput: move |e| onchange.call(e) }
+                input {
+                    value: "{value}",
+                    oninput: move |e| onchange.call(e),
+                    class: "border border-gray-300 focus:outline-none",
+                }
             }
         }
     }
