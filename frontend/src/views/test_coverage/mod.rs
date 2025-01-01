@@ -3,6 +3,8 @@ use crate::components::{css_config, MenuSection};
 use crate::routes::Route;
 use dioxus::prelude::*;
 
+mod acstor_feature_create;
+mod acstor_feature_list;
 mod storage_type_create;
 mod storage_type_list;
 

@@ -1,6 +1,6 @@
 #![allow(unused)]
 #![allow(non_snake_case)]
-use crate::components::{FormButton, FormInputText};
+use crate::components::{FormButton, FormInputText, MyFormDiv};
 use crate::error::Result;
 use dioxus::prelude::*;
 use reqwest::Client;
@@ -67,9 +67,9 @@ pub fn PostCreate() -> Element {
     };
 
     rsx!(
-        div { class: "max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md",
-            h1 { class: "text-2xl font-bold mb-6 text-center", "Create a New Post" }
 
+        MyFormDiv {
+            h1 { class: "text-2xl font-bold mb-6 text-center", "Create a New Post" }
             form { class: "space-y-4",
                 FormInputText {
                     label: "Post title",
@@ -83,9 +83,7 @@ pub fn PostCreate() -> Element {
                     onchange: move |e: FormEvent| content.set(e.value().clone()),
                 }
 
-                div { class: "flex justify-end",
-                    FormButton { label: "Submit", onclick: create_post_action }
-                }
+                FormButton { label: "Submit", onclick: create_post_action }
             }
 
             // Render created post based on condition

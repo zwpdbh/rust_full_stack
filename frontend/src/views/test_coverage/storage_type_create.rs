@@ -1,7 +1,7 @@
 #![allow(non_snake_case)]
 use std::fmt;
 
-use crate::components::{FormButton, FormInputText};
+use crate::components::{FormButton, FormInputText, MyFormDiv};
 use crate::error::Result;
 use dioxus::prelude::*;
 use reqwest::Client;
@@ -79,8 +79,9 @@ pub fn StorageTypeCreate() -> Element {
     rsx!(
         h1 { "StorageTypeCreate" }
 
-        div { class: "max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md",
-            h1 { class: "text-2xl font-bold mb-6 text-center", "Create a New Post" }
+
+        MyFormDiv {
+            h1 { class: "text-2xl font-bold mb-6 text-center", "Create a New StorageType" }
 
             form { class: "space-y-4",
                 FormInputText {
@@ -95,9 +96,7 @@ pub fn StorageTypeCreate() -> Element {
                     onchange: move |e: FormEvent| storage_type_description.set(Some(e.value().clone())),
                 }
 
-                div { class: "flex justify-end",
-                    FormButton { label: "Submit", onclick: create_storage_type_action }
-                }
+                FormButton { label: "Submit", onclick: create_storage_type_action }
             }
 
             RenderCreateStorageTypeResult { create_storage_type_result: create_storage_type_result() }
