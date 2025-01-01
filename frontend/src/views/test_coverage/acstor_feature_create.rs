@@ -1,22 +1,17 @@
+#![allow(unused)]
 #![allow(non_snake_case)]
 use crate::error::Result;
+use common::test_coverage;
 use dioxus::prelude::*;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
-#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
-pub struct AcstorFeatureCreated {
-    pub id: i32,
-    pub name: String,
-    pub description: Option<String>,
-}
-
-pub async fn create_acstor_feature(
+pub async fn create_acstor_feature_v1(
     name: String,
     description: Option<String>,
     storage_type_ids: Vec<i32>,
-) -> Result<AcstorFeatureCreated> {
+) -> Result<test_coverage::CreatedAcstorFeature> {
     let client = Client::new();
     let created = client
         .post("http://localhost::5150/api/acstor_features")
@@ -27,7 +22,21 @@ pub async fn create_acstor_feature(
         }))
         .send()
         .await?
-        .json::<AcstorFeatureCreated>()
+        .json::<test_coverage::CreatedAcstorFeature>()
+        .await?;
+    Ok(created)
+}
+
+pub async fn create_acstor_feature(
+    params: test_coverage::CreateAcstorFeatureFormParams,
+) -> Result<test_coverage::CreatedAcstorFeature> {
+    let client = Client::new();
+    let created = client
+        .post("http://localhost::5150/api/acstor_features")
+        .json(&params)
+        .send()
+        .await?
+        .json::<test_coverage::CreatedAcstorFeature>()
         .await?;
     Ok(created)
 }

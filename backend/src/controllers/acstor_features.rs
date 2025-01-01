@@ -7,7 +7,7 @@ use crate::models::{
     acstor_features::AcstorFeatures,
 };
 use axum::debug_handler;
-use common::{CreateAcstorFeatureFormParams, CreatedAcstorFeature};
+use common::test_coverage;
 use loco_rs::prelude::*;
 use serde::{Deserialize, Serialize};
 
@@ -34,7 +34,7 @@ pub async fn list(State(ctx): State<AppContext>) -> Result<Response> {
 
 pub async fn add(
     State(ctx): State<AppContext>,
-    Json(form): Json<CreateAcstorFeatureFormParams>,
+    Json(form): Json<test_coverage::CreateAcstorFeatureFormParams>,
 ) -> Result<Response> {
     // start a transaction
     let txn = ctx.db.begin().await?;
@@ -64,7 +64,7 @@ pub async fn add(
         .all(&ctx.db)
         .await?;
 
-    let response = CreatedAcstorFeature {
+    let response = test_coverage::CreatedAcstorFeature {
         name: feature.name,
         description: feature.description,
         storage_type_ids: storage_types
