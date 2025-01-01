@@ -17,13 +17,21 @@ pub enum Route {
         // For test coverage
         #[nest("/test_coverage")]
             #[layout(TestCoverage)]
-                #[route("/")]
+                #[route("/storage_types")]
                 StorageTypeList {},
 
                 #[route("/storage_type")]
                 StorageTypeCreate {},
+
+                #[route("/acstor_features")]
+                AcstorFeatureList {},
+
+                #[route("/acstor_feature")]
+                AcstorFeatureCreate {},
             #[end_layout]
         #[end_nest]
+
+
 
         // For blog section
         #[nest("/blog")]

@@ -8,6 +8,8 @@ mod acstor_feature_list;
 mod storage_type_create;
 mod storage_type_list;
 
+pub use acstor_feature_create::AcstorFeatureCreate;
+pub use acstor_feature_list::AcstorFeatureList;
 pub use storage_type_create::StorageTypeCreate;
 pub use storage_type_list::StorageTypeList;
 
@@ -31,6 +33,13 @@ fn TestCoverageMenu() -> Element {
                 items: vec![
                     ("List", Some(Route::StorageTypeList {})),
                     ("Create", Some(Route::StorageTypeCreate {})),
+                ],
+            }
+            MenuSection {
+                title: "ACStor Features",
+                items: vec![
+                    ("List", Some(Route::AcstorFeatureList {})),
+                    ("Create", Some(Route::AcstorFeatureCreate {})),
                 ],
             }
         }
