@@ -7,15 +7,9 @@ use crate::models::{
     acstor_features::AcstorFeatures,
 };
 use axum::debug_handler;
+use common::{CreateAcstorFeatureFormParams, CreatedAcstorFeature};
 use loco_rs::prelude::*;
 use serde::{Deserialize, Serialize};
-
-#[derive(Debug, Deserialize)]
-pub struct AddFeatureForm {
-    name: String,
-    description: Option<String>,
-    storage_type_ids: Vec<i32>,
-}
 
 #[derive(Debug, Deserialize)]
 pub struct UpdateParams {
@@ -30,12 +24,6 @@ pub struct FeatureResponse {
     description: Option<String>,
 }
 
-#[derive(Debug, Serialize)]
-pub struct FeatureWithStorageTypes {
-    pub feature: acstor_features::Model,
-    pub storage_types: Vec<storage_types::Model>,
-}
-
 // region:      --- CRUD for acstor_features ---
 
 #[debug_handler]
@@ -46,7 +34,7 @@ pub async fn list(State(ctx): State<AppContext>) -> Result<Response> {
 
 pub async fn add(
     State(ctx): State<AppContext>,
-    Json(form): Json<AddFeatureForm>,
+    Json(form): Json<CreateAcstorFeatureFormParams>,
 ) -> Result<Response> {
     // start a transaction
     let txn = ctx.db.begin().await?;
@@ -76,9 +64,13 @@ pub async fn add(
         .all(&ctx.db)
         .await?;
 
-    let response = FeatureWithStorageTypes {
-        feature,
-        storage_types,
+    let response = CreatedAcstorFeature {
+        name: feature.name,
+        description: feature.description,
+        storage_type_ids: storage_types
+            .iter()
+            .map(|storage_type| storage_type.id)
+            .collect(),
     };
 
     format::json(response)

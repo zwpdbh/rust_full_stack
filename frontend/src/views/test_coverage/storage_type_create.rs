@@ -28,7 +28,7 @@ pub async fn create_storage_type(
     description: Option<String>,
 ) -> Result<StorageTypeCreated> {
     let client = Client::new();
-    let post_created = client
+    let created = client
         .post("http://localhost:5150/api/storage_types")
         .json(&json!({
             "name": name,
@@ -39,7 +39,7 @@ pub async fn create_storage_type(
         .json::<StorageTypeCreated>()
         .await?;
 
-    Ok(post_created)
+    Ok(created)
 }
 
 #[derive(Debug, PartialEq, Clone)]

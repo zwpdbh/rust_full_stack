@@ -1547,6 +1547,7 @@ dependencies = [
  "async-trait",
  "axum",
  "chrono",
+ "common",
  "httpc-test",
  "include_dir",
  "insta",
@@ -2545,6 +2546,14 @@ dependencies = [
  "pin-project-lite",
  "tokio",
  "tokio-util",
+]
+
+[[package]]
+name = "common"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
@@ -4784,6 +4793,7 @@ name = "frontend"
 version = "0.1.0"
 dependencies = [
  "chrono",
+ "common",
  "dioxus",
  "dioxus-cli",
  "dioxus-free-icons",

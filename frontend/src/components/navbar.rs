@@ -16,7 +16,7 @@ pub fn NavBar() -> Element {
                         NavBarItem { label: "Home", route: Some(Route::Home {}) }
                         NavBarItem {
                             label: "Test Coverage",
-                            route: Some(Route::AcstorFeatureCreate {}),
+                            route: Some(Route::AcstorFeatureList {}),
                         }
                         NavBarItem {
                             label: "Demos",
