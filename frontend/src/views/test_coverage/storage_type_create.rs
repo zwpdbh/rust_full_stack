@@ -4,6 +4,7 @@ use std::fmt;
 use crate::components::{FormButton, FormInputText, MyFormDiv};
 use crate::config::BACKEND_URI;
 use crate::error::Result;
+use crate::routes::Route;
 use common::StorageTypeCreated;
 use dioxus::prelude::*;
 use reqwest::Client;
@@ -16,8 +17,11 @@ pub async fn create_storage_type(
     description: Option<String>,
 ) -> Result<StorageTypeCreated> {
     let client = Client::new();
+    let url = format!("{BACKEND_URI}/api{}", Route::StorageTypeCreate {});
+    info!("->> {url}");
+
     let created = client
-        .post(format!("{BACKEND_URI}/api/storage_types"))
+        .post(url)
         .json(&json!({
             "name": name,
             "description": description
