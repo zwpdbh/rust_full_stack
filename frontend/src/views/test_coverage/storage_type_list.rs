@@ -1,5 +1,6 @@
 #![allow(non_snake_case)]
 use super::storage_type_create::StorageTypeCreated;
+use crate::config::BACKEND_URI;
 use crate::error::Result;
 use dioxus::prelude::*;
 use reqwest::Client;
@@ -15,7 +16,7 @@ pub fn StorageTypeList() -> Element {
 async fn get_storage_types() -> Result<Vec<StorageTypeCreated>> {
     let client = Client::new();
     let storage_types = client
-        .get("http://localhost:5150/api/storage_types")
+        .get(format!("{BACKEND_URI}/api/storage_types"))
         .send()
         .await?
         .json::<Vec<StorageTypeCreated>>()

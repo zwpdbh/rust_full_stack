@@ -1,4 +1,5 @@
 #![allow(non_snake_case)]
+use crate::config::BACKEND_URI;
 use crate::error::Result;
 use dioxus::prelude::*;
 use reqwest::Client;
@@ -19,7 +20,7 @@ pub async fn create_acstor_feature(
 ) -> Result<AcstorFeatureCreated> {
     let client = Client::new();
     let created = client
-        .post("http://localhost::5150/api/acstor_features")
+        .post(format!("{BACKEND_URI}/api/acstor_features"))
         .json(&json!({
             "name": name,
             "description": description,

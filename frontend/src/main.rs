@@ -1,16 +1,14 @@
 #![allow(non_snake_case)]
 
+use config::*;
 use dioxus::prelude::*;
 use routes::Route;
 
 mod components;
+mod config;
 mod error;
 mod routes;
 mod views;
-
-const FAVICON: Asset = asset!("./assets/favicon.ico");
-const MAIN_CSS: Asset = asset!("./assets/styling/main.css");
-const TAILWIND_CSS: Asset = asset!("./assets/tailwind.css");
 
 fn App() -> Element {
     rsx! {

@@ -2,6 +2,7 @@
 use std::fmt;
 
 use crate::components::{FormButton, FormInputText, MyFormDiv};
+use crate::config::BACKEND_URI;
 use crate::error::Result;
 use dioxus::prelude::*;
 use reqwest::Client;
@@ -29,7 +30,7 @@ pub async fn create_storage_type(
 ) -> Result<StorageTypeCreated> {
     let client = Client::new();
     let created = client
-        .post("http://localhost:5150/api/storage_types")
+        .post(format!("{BACKEND_URI}/api/storage_types"))
         .json(&json!({
             "name": name,
             "description": description
@@ -85,13 +86,13 @@ pub fn StorageTypeCreate() -> Element {
 
             form { class: "space-y-4",
                 FormInputText {
-                    label: "Feature Name",
+                    label: "Storage Type Name",
                     value: storage_type_name(),
                     onchange: move |e: FormEvent| storage_type_name.set(e.value().clone()),
                 }
 
                 FormInputText {
-                    label: "Feature Description",
+                    label: "Storage Type Description",
                     value: storage_type_description().unwrap_or("".to_string()),
                     onchange: move |e: FormEvent| storage_type_description.set(Some(e.value().clone())),
                 }
