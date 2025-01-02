@@ -74,11 +74,11 @@ pub async fn get_one(Path(id): Path<i32>, State(ctx): State<AppContext>) -> Resu
 
 pub fn routes() -> Routes {
     Routes::new()
-        .prefix("api/test_coverage/storage_types/")
-        .add("/", get(list))
-        .add("/", post(add))
-        .add(":id", get(get_one))
-        .add(":id", delete(remove))
-        .add(":id", put(update))
-        .add(":id", patch(update))
+        .prefix("api/test_coverage")
+        .add("/storage_types", get(list))
+        .add("/storage_type", post(add))
+        .add("/storage_type:id", get(get_one))
+        .add("/storage_type:id", delete(remove))
+        .add("/storage_type:id", put(update))
+        .add("/storage_type:id", patch(update))
 }

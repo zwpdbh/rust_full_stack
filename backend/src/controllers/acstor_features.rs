@@ -77,3 +77,9 @@ pub async fn add(
 }
 
 // endregion:   --- CRUD for acstor_features ---
+pub fn routes() -> Routes {
+    Routes::new()
+        .prefix("api/test_coverage")
+        .add("/acstor_features", get(list))
+        .add("/acstor_feature", post(add))
+}
