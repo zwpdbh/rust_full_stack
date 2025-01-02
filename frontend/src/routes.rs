@@ -4,6 +4,7 @@ use dioxus::prelude::*;
 use crate::components::*;
 use crate::views::blog::*;
 use crate::views::demos::*;
+use crate::views::test_coverage::*;
 
 #[rustfmt::skip]
 #[derive(Clone, Routable, Debug, PartialEq)]
@@ -12,6 +13,25 @@ pub enum Route {
     #[layout(NavBar)]
         #[route("/")]
         Home {},
+
+        // For test coverage
+        #[nest("/test_coverage")]
+            #[layout(TestCoverage)]
+                #[route("/storage_types")]
+                StorageTypeList {},
+
+                #[route("/storage_type")]
+                StorageTypeCreate {},
+
+                #[route("/acstor_features")]
+                AcstorFeatureList {},
+
+                #[route("/acstor_feature")]
+                AcstorFeatureCreate {},
+            #[end_layout]
+        #[end_nest]
+
+
 
         // For blog section
         #[nest("/blog")]

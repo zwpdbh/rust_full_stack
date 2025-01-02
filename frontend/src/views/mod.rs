@@ -4,6 +4,7 @@ use dioxus::prelude::*;
 
 pub mod blog;
 pub mod demos;
+pub mod test_coverage;
 
 #[component]
 pub fn Home() -> Element {

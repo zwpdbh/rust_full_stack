@@ -2,6 +2,7 @@
 use crate::routes::Route;
 use dioxus::prelude::*;
 
+/// This component is responsible for rending the nav bar (header)
 #[component]
 pub fn NavBar() -> Element {
     rsx!(
@@ -13,6 +14,10 @@ pub fn NavBar() -> Element {
                 div {
                     ul { class: "flex items-center gap-[4vw]",
                         NavBarItem { label: "Home", route: Some(Route::Home {}) }
+                        NavBarItem {
+                            label: "Test Coverage",
+                            route: Some(Route::AcstorFeatureList {}),
+                        }
                         NavBarItem {
                             label: "Demos",
                             route: Some(Route::DemoMenuDefault {}),

@@ -9,6 +9,7 @@ pub enum StorageTypes {
     Table,
     Id,
     Name,
+    Description,
 }
 
 #[async_trait::async_trait]
@@ -19,6 +20,7 @@ impl MigrationTrait for Migration {
                 table_auto_tz(StorageTypes::Table)
                     .col(pk_auto(StorageTypes::Id))
                     .col(string(StorageTypes::Name))
+                    .col(string_null(StorageTypes::Description))
                     .to_owned(),
             )
             .await
