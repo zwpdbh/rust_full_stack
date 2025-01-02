@@ -3,6 +3,7 @@
 use super::storage_type_list::get_storage_types;
 use crate::components::MyFormDiv;
 use crate::error::Result;
+use crate::routes::Route;
 use crate::{components::FormButton, config::BACKEND_URI};
 use common::test_coverage::{self, StorageTypeCreated};
 use dioxus::prelude::*;
@@ -11,32 +12,15 @@ use serde::{Deserialize, Serialize};
 use serde_json::json;
 use tracing::info;
 
-pub async fn create_acstor_feature_v1(
-    name: String,
-    description: Option<String>,
-    storage_type_ids: Vec<i32>,
-) -> Result<test_coverage::CreatedAcstorFeature> {
-    let client = Client::new();
-    let created = client
-        .post(format!("{BACKEND_URI}/api/acstor_features"))
-        .json(&json!({
-            "name": name,
-            "description": description,
-            "storage_types": storage_type_ids
-        }))
-        .send()
-        .await?
-        .json::<test_coverage::CreatedAcstorFeature>()
-        .await?;
-    Ok(created)
-}
-
 pub async fn create_acstor_feature(
     params: test_coverage::CreateAcstorFeatureFormParams,
 ) -> Result<test_coverage::CreatedAcstorFeature> {
     let client = Client::new();
     let created = client
-        .post("http://localhost::5150/api/acstor_features")
+        .post(format!(
+            "{BACKEND_URI}/api{}",
+            Route::AcstorFeatureCreate {}
+        ))
         .json(&params)
         .send()
         .await?
