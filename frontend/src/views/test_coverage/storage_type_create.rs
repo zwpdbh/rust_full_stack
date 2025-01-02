@@ -4,25 +4,12 @@ use std::fmt;
 use crate::components::{FormButton, FormInputText, MyFormDiv};
 use crate::config::BACKEND_URI;
 use crate::error::Result;
+use common::StorageTypeCreated;
 use dioxus::prelude::*;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use tracing::info;
-
-#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
-pub struct StorageTypeCreated {
-    pub id: i32,
-    pub name: String,
-    pub description: Option<String>,
-}
-
-impl fmt::Display for StorageTypeCreated {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let output = format!("name: {}", self.name);
-        write!(f, "{}", output)
-    }
-}
 
 pub async fn create_storage_type(
     name: String,

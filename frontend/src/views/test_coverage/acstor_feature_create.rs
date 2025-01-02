@@ -1,6 +1,8 @@
 #![allow(non_snake_case)]
+use super::storage_type_list::get_storage_types;
 use crate::config::BACKEND_URI;
 use crate::error::Result;
+use common::StorageTypeCreated;
 use dioxus::prelude::*;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
@@ -35,6 +37,9 @@ pub async fn create_acstor_feature(
 
 #[component]
 pub fn AcstorFeatureCreate() -> Element {
+    let mut future: Resource<Result<Vec<StorageTypeCreated>>> =
+        use_resource(|| get_storage_types());
+
     rsx!(
         h1 { "AcstorFeatureCreate" }
     )
