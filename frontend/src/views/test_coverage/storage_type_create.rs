@@ -1,35 +1,24 @@
 #![allow(non_snake_case)]
-use std::fmt;
-
 use crate::components::{FormButton, FormInputText, MyFormDiv};
+use crate::config::BACKEND_URI;
 use crate::error::Result;
+use crate::routes::Route;
+use common::test_coverage::StorageTypeCreated;
 use dioxus::prelude::*;
 use reqwest::Client;
-use serde::{Deserialize, Serialize};
 use serde_json::json;
 use tracing::info;
-
-#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
-pub struct StorageTypeCreated {
-    pub id: i32,
-    pub name: String,
-    pub description: Option<String>,
-}
-
-impl fmt::Display for StorageTypeCreated {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let output = format!("name: {}", self.name);
-        write!(f, "{}", output)
-    }
-}
 
 pub async fn create_storage_type(
     name: String,
     description: Option<String>,
 ) -> Result<StorageTypeCreated> {
     let client = Client::new();
+    let url = format!("{BACKEND_URI}/api{}", Route::StorageTypeCreate {});
+    info!("->> {url}");
+
     let created = client
-        .post("http://localhost:5150/api/storage_types")
+        .post(url)
         .json(&json!({
             "name": name,
             "description": description
@@ -85,13 +74,13 @@ pub fn StorageTypeCreate() -> Element {
 
             form { class: "space-y-4",
                 FormInputText {
-                    label: "Feature Name",
+                    label: "Storage Type Name",
                     value: storage_type_name(),
                     onchange: move |e: FormEvent| storage_type_name.set(e.value().clone()),
                 }
 
                 FormInputText {
-                    label: "Feature Description",
+                    label: "Storage Type Description",
                     value: storage_type_description().unwrap_or("".to_string()),
                     onchange: move |e: FormEvent| storage_type_description.set(Some(e.value().clone())),
                 }

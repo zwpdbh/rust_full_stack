@@ -1,8 +1,11 @@
 #![allow(non_snake_case)]
-use super::storage_type_create::StorageTypeCreated;
+use crate::config::BACKEND_URI;
 use crate::error::Result;
+use crate::routes::Route;
+use common::test_coverage::StorageTypeCreated;
 use dioxus::prelude::*;
 use reqwest::Client;
+use tracing::info;
 
 #[component]
 pub fn StorageTypeList() -> Element {
@@ -12,10 +15,13 @@ pub fn StorageTypeList() -> Element {
     }
 }
 
-async fn get_storage_types() -> Result<Vec<StorageTypeCreated>> {
+pub async fn get_storage_types() -> Result<Vec<StorageTypeCreated>> {
     let client = Client::new();
+    let url = format!("{BACKEND_URI}/api{}", Route::StorageTypeList {});
+
+    info!("->> {url}");
     let storage_types = client
-        .get("http://localhost:5150/api/storage_types")
+        .get(url)
         .send()
         .await?
         .json::<Vec<StorageTypeCreated>>()
